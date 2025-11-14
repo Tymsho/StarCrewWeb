@@ -20,21 +20,11 @@ El diseño de la aplicación ha sido actualizado con una estética **Retro-Futur
 
 ### Pasos para configurar el entorno:
 
-1.  **Base de Datos:** Asegúrate de que la base de datos de la aplicación esté creada en SQL Server (usando el script original `query.txt`).
-2.  **Cadena de Conexión (Web.config):**
-    * Abre el archivo **Web.config** en la raíz del proyecto.
-    * Busca la sección `<connectionStrings>`.
-    * Modifica la entrada `StarCrewDB` para que apunte correctamente a tu instancia de SQL Server.
-
-    ```xml
-    <connectionStrings>
-        <add name="StarCrewDB" 
-             connectionString="Server=TU_SERVIDOR;Database=StarCrew;Trusted_Connection=True;" 
-             providerName="System.Data.SqlClient" />
-    </connectionStrings>
-    ```
-3.  **Compilación y Enlaces:** Verifica que los proyectos **Modelo** y **Controlador** estén correctamente referenciados por el proyecto **StarCrewWeb** (Revisa las **Referencias** en el Explorador de Soluciones).
-4.  **Ejecutar:** Presiona **F5**. La aplicación se abrirá en el navegador por defecto.
+1. Crea una base de datos en **SQL Server** utilizando el script de query.txt incluido en los archivos del repositorio.
+2. Abre el archivo `Modelo.cs` dentro del proyecto.
+3. Busca la clase `Conexion` y modifica la propiedad `Local` para configurar correctamente tu cadena de conexión con la base de datos local.
+3. Verifica que los proyectos **Modelo** y **Controlador** estén correctamente referenciados por el proyecto **StarCrewWeb** (Revisa las **Referencias** en el Explorador de Soluciones).
+4. Presiona **F5**. La aplicación se abrirá en el navegador por defecto.
 
 ---
 
