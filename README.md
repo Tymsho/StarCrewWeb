@@ -48,7 +48,7 @@ La navegación sigue el flujo del patrón **Master Page** (`Site.Master`), que c
 
 ### 2. Asignación de Misiones (`Misiones.aspx`)
 * La selección de misión utiliza un **DropDownList** con **AutoPostBack** para mostrar dinámicamente los **Requisitos** y la **Dificultad** en tiempo real.
-* La selección de personal disponible se realiza mediante un **ListBox** de selección múltiple.
+* La selección de personal disponible se realiza mediante un **ListBox** de selección múltiple (presionando SHIFT).
 * La lógica de la capa de **Controlador** determina qué tripulantes están "Pendientes" de una misión y los excluye de la lista de disponibles.
 
 ### 3. Finalización y Resultados (`Historial.aspx`)
