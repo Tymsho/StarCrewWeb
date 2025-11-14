@@ -1,0 +1,125 @@
+CREATE DATABASE StarCrew
+GO
+
+USE StarCrew
+
+GO
+
+CREATE TABLE Roles (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    Nombre NVARCHAR(100) NOT NULL
+);
+GO
+
+CREATE TABLE TiposDeMision (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    Nombre NVARCHAR(100) NOT NULL
+);
+GO
+
+CREATE TABLE Tripulantes (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    Nombre NVARCHAR(100) NOT NULL,
+    RolId INT NOT NULL,
+    NivelHabilidad INT NOT NULL CHECK (NivelHabilidad BETWEEN 1 AND 3) DEFAULT 1,
+    FOREIGN KEY (RolId) REFERENCES Roles(Id)
+);
+GO
+
+CREATE TABLE Misiones (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    Titulo NVARCHAR(150) NOT NULL,
+    TipoMisionId INT NOT NULL,
+    Dificultad INT NOT NULL CHECK (Dificultad BETWEEN 1 AND 3),
+    Requisitos NVARCHAR (150) NOT NULL,
+    FOREIGN KEY (TipoMisionId) REFERENCES TiposDeMision(Id)
+);
+GO
+
+CREATE TABLE Asignaciones (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    TripulanteId INT NOT NULL,
+    MisionId INT NOT NULL,
+	Estado NVARCHAR(50) CHECK (Estado IN ('Pendiente', 'Exitosa','Fallida')) DEFAULT ('Pendiente'),
+    FOREIGN KEY (TripulanteId) REFERENCES Tripulantes(Id),
+    FOREIGN KEY (MisionId) REFERENCES Misiones(Id)
+);
+GO
+
+CREATE TABLE HistorialMisiones (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    MisionId INT NOT NULL,
+    FechaFinalizacion DATETIME NOT NULL DEFAULT GETDATE(),
+    Resultado NVARCHAR(50) CHECK (Resultado IN ('Exitosa', 'Fallida')),
+    Detalles NVARCHAR(500),  -- Opcional: Puede guardar detalles sobre la misión
+    FOREIGN KEY (MisionId) REFERENCES Misiones(Id)
+);
+GO
+
+CREATE TABLE RequisitosMision (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+	MisionId INT NOT NULL, 
+    RolId INT NOT NULL,  -- FK a la tabla Roles
+    CantidadMinima INT NOT NULL,
+    HabilidadMinima INT NOT NULL,
+    FOREIGN KEY (MisionId) REFERENCES Misiones(Id),
+    FOREIGN KEY (RolId) REFERENCES Roles(Id)
+);
+GO
+
+INSERT INTO Roles (Nombre)
+VALUES ('Soldado'),
+('Ingeniero'),
+('Cientifico'),
+('Medico');
+GO
+
+INSERT INTO TiposDeMision (Nombre)
+VALUES ('Intercepcion'),
+('Mantenimiento'),
+('Reconocimiento'),
+('Rescate');
+GO
+
+INSERT INTO Misiones (Titulo, TipoMisionId, Dificultad, Requisitos)
+VALUES ('Neutralizar una  pequeña nave enemiga', 1, 1, 'Soldado Lvl. 1'),
+('Interceptar una nave desconocida y realizar una inspección', 1, 2, 'Soldado Lvl. 2, Soldado Lvl. 2, Médico Lvl. 1'),
+('Desactivar una nave hostil cerca de una colonia espacial', 1, 3, 'Soldado Lvl. 3,  Soldado Lvl. 3,  Ingeniero Lvl. 2'),
+
+('Reparar una nave con fallas menores en su sistema de comunicación', 2, 1, 'Ingeniero Lvl. 1'),
+('Revisar y actualizar los sistemas de una estación espacial', 2, 2, 'Ingeniero Lvl. 2'),
+('Restaurar una nave con daños críticos en un entorno hostil', 2, 3, 'Soldado Lvl. 3, Ingeniero Lvl. 3, Médico Lvl. 2'),
+
+('Mapear un pequeño asteroide para identificar recursos minerales', 3, 1, 'Científico Lvl. 1'),
+('Investigar señales inusuales en una región remota del espacio', 3, 2, 'Soldado Lvl. 2,  Científico Lvl. 2'),
+('Examinar el interior de un planeta misterioso con riesgo ambiental', 3, 3, 'Soldado Lvl. 3, Científico Lvl. 3, Médico Lvl. 2'),
+
+('Rescatar un tripulante perdido en el espacio cercano', 4, 1, 'Soldado Lvl. 1, Médico Lvl. 1'),
+('Recuperar una nave varada con tripulantes heridos', 4, 2, 'Soldado Lvl. 2, Médico Lvl. 2, Médico Lvl. 2'),
+('Rescatar una colonia en peligro por un fenómeno espacial', 4, 3, 'Soldado Lvl. 2, Ingeniero Lvl. 2, Médico Lvl. 3');
+GO
+
+INSERT INTO RequisitosMision (MisionId, RolId, CantidadMinima, HabilidadMinima)
+VALUES (1, 1, 1, 1),
+(2, 1, 2, 2),
+(2, 4, 1, 1),
+(3, 1, 2, 3),
+(3, 2, 1, 2),
+(4, 2, 1, 1),
+(5, 2, 1, 2),
+(6, 1, 1, 3),
+(6, 2, 1, 3),
+(6, 4, 1, 2),
+(7, 3, 1, 1),
+(8, 1, 1, 2),
+(8, 3, 1, 2),
+(9, 1, 1, 3),
+(9, 3, 1, 3),
+(9, 4, 1, 2),
+(10, 1, 1, 1),
+(10, 4, 1, 1),
+(11, 1, 1, 2),
+(11, 4, 2, 2),
+(12, 1, 1, 2),
+(12, 2, 1, 2),
+(12, 4, 1, 3);
