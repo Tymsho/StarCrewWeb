@@ -1,0 +1,173 @@
+﻿/*
+ * =========================================
+ * ESTILO TERMINAL "ALIEN / WEYLAND-YUTANI"
+ * =========================================
+ */
+
+/* --- 1. CONFIGURACIÓN GENERAL DE LA "TERMINAL" --- */
+
+html {
+    /* Fondo negro, incluso si la página es corta */
+    background-color: #000;
+}
+
+body {
+    background-color: #000; /* Fondo negro */
+    color: #00FF00; /* Verde "Lime" brillante */
+    font-family: 'Consolas', 'Courier New', monospace; /* Fuente de terminal */
+    margin: 0;
+    padding: 20px;
+    height: 100%;
+}
+
+    /* Efecto opcional de "líneas de escaneo" de un monitor CRT */
+    body::after {
+        content: " ";
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 10;
+        pointer-events: none; /* Permite hacer clic a través de él */
+        background: repeating-linear-gradient( to bottom, transparent 0, transparent 1px, rgba(0, 50, 0, 0.4) 2px, /* Líneas verde oscuro */
+        rgba(0, 50, 0, 0.4) 3px );
+    }
+
+/* --- 2. ESTILO DE TEXTOS Y ENCABEZADOS --- */
+
+h1, h2, h3, h4 {
+    color: #00FF00; /* Verde */
+    text-transform: uppercase; /* ¡Todo en mayúsculas! */
+    letter-spacing: 2px;
+    border-bottom: 1px solid #00FF00;
+    padding-bottom: 5px;
+    font-weight: 600;
+}
+
+p {
+    line-height: 1.6;
+}
+
+/* --- 3. ESTILO DE FORMULARIOS (BOTONES, TEXTBOX, LISTAS) --- */
+
+/* Botones (asp:Button) */
+input[type=submit], input[type=button] {
+    background-color: transparent;
+    border: 2px solid #00FF00;
+    color: #00FF00;
+    padding: 10px 15px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 0; /* Sin bordes redondeados */
+    margin: 5px;
+}
+
+    /* Efecto Hover para Botones */
+    input[type=submit]:hover, input[type=button]:hover {
+        background-color: #00FF00; /* Se invierten los colores */
+        color: #000;
+    }
+
+/* Cajas de Texto (asp:TextBox) */
+input[type=text] {
+    background-color: #011501; /* Verde muy oscuro */
+    border: 1px solid #00FF00;
+    color: #00FF00;
+    padding: 8px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    border-radius: 0;
+}
+
+/* Listas (asp:DropDownList y asp:ListBox) */
+select, select option {
+    background-color: #011501; /* Verde muy oscuro */
+    border: 1px solid #00FF00;
+    color: #00FF00;
+    padding: 8px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    border-radius: 0;
+}
+
+    select option {
+        padding: 5px; /* Para que se vea bien en Firefox */
+    }
+
+/* --- 4. ESTILO DE TABLAS (GridView y Repeater) --- */
+
+table {
+    width: 100%;
+    border-collapse: collapse; /* Bordes duros */
+    border: 1px solid #00FF00;
+    margin-top: 20px;
+}
+
+/* Encabezados de la tabla */
+th {
+    background-color: #003300; /* Verde oscuro */
+    color: #00FF00;
+    text-transform: uppercase;
+    border: 1px solid #00FF00;
+    padding: 10px;
+    text-align: left;
+}
+
+/* Celdas de la tabla */
+td {
+    border: 1px solid #003300; /* Bordes más sutiles */
+    padding: 8px;
+}
+
+/* Efecto de "selección" en la fila */
+tr:hover {
+    background-color: #002000; /* Verde oscuro sutil */
+}
+
+/* --- 5. CLASES DE MENSAJES (Para Labels de éxito/error) --- */
+/*
+   Necesitarás aplicar estas clases desde el código C#
+   Ej: lblResultado.CssClass = "msg-success";
+*/
+
+.msg-success {
+    color: #00FF00; /* Verde */
+    font-weight: bold;
+    border: 1px dashed #00FF00;
+    padding: 10px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.msg-error {
+    color: #FF4136; /* Rojo brillante */
+    font-weight: bold;
+    border: 1px dashed #FF4136;
+    padding: 10px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.msg-info {
+    color: #7FDBFF; /* Cian brillante */
+    font-weight: bold;
+    border: 1px dashed #7FDBFF;
+    padding: 10px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+/* Estilo para la imagen de presentación centrada */
+.imagen-presentacion {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80%; /* No ocupará más del 80% del ancho */
+    margin-top: 50px; /* Un poco de espacio arriba */
+    /* Le añadimos el estilo de la terminal */
+    border: 3px solid #00FF00;
+    padding: 10px;
+    background-color: #011501;
+}
